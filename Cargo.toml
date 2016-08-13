@@ -5,3 +5,4 @@ authors = ["matthunz <matthunz2@gmail.com>"]
 
 [dependencies]
 rustache = "0.0.3"
+toml = "0.1"
