@@ -2,16 +2,17 @@ extern crate rustache;
 extern crate toml;
 
 use rustache::{HashBuilder, render_file};
-use std::io::Read;
+use std::fs::File;
+use std::io::{Read, };
 use std::process::exit;
 
 fn main() {
-    let toml = r#"
-        [test]
-        foo = "bar"
-    "#;
+    let mut buffer = String::new();
+    File::open("config.toml")
+        .expect("Couldn't find configuration file")
+        .read_to_string(&mut buffer);
 
-    let config = match toml::Parser::new(toml).parse() {
+    let config = match toml::Parser::new(&buffer).parse() {
         Some(config) => config,
         None => {
             println!("error: could not parse configuration file");
