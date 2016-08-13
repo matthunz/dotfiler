@@ -27,9 +27,22 @@ fn main() {
     let mut context = Context::new();
 
     for (key, val) in variables {
-        context.add(key, &val.as_str().unwrap());
+        context.add(key, &val.as_str().expect("error: value not a valid string"));
     };
 
     let tera = Tera::new("examples/*");
-    println!("{}", tera.render("xresources", context).unwrap());
+
+    let files = config
+        .get("files")
+        .expect("No [files] section found")
+        .as_table().expect("[files] is not valid a TOML table");
+
+    for (template, path) in files {
+        let path = path.as_str().expect("error: path not a valid string");
+        let render = tera
+            .render(template, context.clone())
+            .expect("error: couldn't render template");
+        let file = File::create(&path)
+            .expect(format!("Couldn't access {}", path).as_str());
+    };
 }

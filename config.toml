@@ -1,2 +1,5 @@
+[files]
+xresources = "Xresources"
+
 [variables]
 fg = "#888888"
