@@ -2,13 +2,16 @@ extern crate tera;
 extern crate toml;
 
 use tera::{Tera, Context};
+use std::env::home_dir;
 use std::fs::File;
 use std::io::{Read, Write};
 use std::process::exit;
 
 fn main() {
+    let app_dir = format!("{}/.config/riceinator/", home_dir().unwrap().display());
+
     let mut buffer = String::new();
-    File::open("config.toml")
+    File::open(format!("{}config.toml", app_dir).as_str())
         .expect("Couldn't find configuration file")
         .read_to_string(&mut buffer);
 
@@ -30,7 +33,7 @@ fn main() {
         context.add(key, &val.as_str().expect("error: value not a valid string"));
     };
 
-    let tera = Tera::new("examples/*");
+    let tera = Tera::new(format!("{}templates/*", app_dir).as_str());
 
     let files = config
         .get("files")
