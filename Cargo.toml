@@ -4,5 +4,5 @@ version = "0.1.0"
 authors = ["matthunz <matthunz2@gmail.com>"]
 
 [dependencies]
-rustache = "0.0.3"
+tera = "0.1.2"
 toml = "0.1"

@@ -1,2 +1,2 @@
-[test]
-foo = "bar"
+[variables]
+fg = "#888888"

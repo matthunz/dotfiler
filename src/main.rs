@@ -1,9 +1,9 @@
-extern crate rustache;
+extern crate tera;
 extern crate toml;
 
-use rustache::{HashBuilder, render_file};
+use tera::{Tera, Context};
 use std::fs::File;
-use std::io::{Read, };
+use std::io::Read;
 use std::process::exit;
 
 fn main() {
@@ -20,21 +20,16 @@ fn main() {
         }
     };
 
-    println!("{:?}", config.get("test").unwrap());
-    
-    let data = HashBuilder::new()
-        .insert_string("fg", "#888888");
-    
-    let mut rendered = String::new();
-    match rustache::render_file("examples/xresources", data) {
-        Ok(mut render) => {
-            render.read_to_string(&mut rendered);
-        },
-        Err(err) => {
-            println!("error: could not read template file");
-            exit(1);
-        }
+    let variables = config
+        .get("variables")
+        .expect("No [variables] section found")
+        .as_table().expect("[variables] is not valid a TOML table");
+    let mut context = Context::new();
+
+    for (key, val) in variables {
+        context.add(key, &val.as_str().unwrap());
     };
-    
-    println!("{}", rendered);
+
+    let tera = Tera::new("examples/*");
+    println!("{}", tera.render("xresources", context).unwrap());
 }
