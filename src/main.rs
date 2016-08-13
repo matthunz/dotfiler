@@ -3,7 +3,7 @@ extern crate toml;
 
 use tera::{Tera, Context};
 use std::fs::File;
-use std::io::Read;
+use std::io::{Read, Write};
 use std::process::exit;
 
 fn main() {
@@ -42,7 +42,8 @@ fn main() {
         let render = tera
             .render(template, context.clone())
             .expect("error: couldn't render template");
-        let file = File::create(&path)
+        let mut file = File::create(&path)
             .expect(format!("Couldn't access {}", path).as_str());
+        file.write_all(render.as_bytes());
     };
 }
