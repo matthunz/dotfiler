@@ -2,6 +2,7 @@ extern crate rustache;
 
 use rustache::{HashBuilder, render_file};
 use std::io::Read;
+use std::process;
 
 fn main() {
     let data = HashBuilder::new()
@@ -13,7 +14,8 @@ fn main() {
             render.read_to_string(&mut rendered);
         },
         Err(err) => {
-            println!("Error: could not read template file");
+            println!("error: could not read template file");
+            process::exit(1);
         }
     };
     
