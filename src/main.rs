@@ -27,10 +27,19 @@ fn main() {
         }
     };
 
+    let theme = match env::args().nth(1) {
+        Some(theme) => theme,
+        None => "default".to_owned()
+    };
+    if ! config.contains_key(&theme) {
+        println!("error: theme [{}] not found", theme);
+        exit(1);
+    }
+    
     let variables = config
-        .get("variables")
-        .expect("No [variables] section found")
-        .as_table().expect("[variables] is not valid a TOML table");
+        .get(&theme)
+        .unwrap()
+        .as_table().expect("Theme is not valid a TOML table");
     let mut context = Context::new();
 
     for (key, val) in variables {
@@ -55,4 +64,5 @@ fn main() {
         file.write_all(render.as_bytes());
         println!("Rendered {}", path);
     };
+
 }
