@@ -1,5 +1,5 @@
 [package]
-name = "riceinator"
+name = "dotfiler"
 version = "0.1.0"
 authors = ["matthunz <matthunz2@gmail.com>"]
 build = "build.rs"

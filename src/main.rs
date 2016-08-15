@@ -10,8 +10,8 @@ use std::path::Path;
 
 fn main() {
     let app_dir = match env::var("XDG_CONFIG_HOME") {
-        Ok(xdg_config) => Path::new(xdg_config.as_str()).join("riceinator"),
-        Err(_) => env::home_dir().unwrap().join(".config/riceinator")
+        Ok(xdg_config) => Path::new(xdg_config.as_str()).join("dotfiler"),
+        Err(_) => env::home_dir().unwrap().join(".config/dotfiler")
     };
 
     let mut buffer = String::new();
