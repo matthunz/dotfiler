@@ -48,5 +48,6 @@ fn main() {
         let mut file = File::create(&path)
             .expect(format!("Couldn't access {}", path).as_str());
         file.write_all(render.as_bytes());
+        println!("Rendered {}", path);
     };
 }
