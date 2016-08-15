@@ -1,5 +1,5 @@
 [files]
-xresources = "~/.Xresources"
+xresources = "/home/<user>/.Xresources"
 
-[variables]
+[default]
 fg = "#888888"
