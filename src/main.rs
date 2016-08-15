@@ -6,12 +6,14 @@ use std::env::home_dir;
 use std::fs::File;
 use std::io::{Read, Write};
 use std::process::exit;
+use std::path::Path;
 
 fn main() {
-    let app_dir = format!("{}/.config/riceinator/", home_dir().unwrap().display());
+    let formatted = format!("{}/.config/riceinator/", home_dir().unwrap().display());
+    let app_dir = Path::new(formatted.as_str());
 
     let mut buffer = String::new();
-    File::open(format!("{}config.toml", app_dir).as_str())
+    File::open(app_dir.join("config.toml"))
         .expect("Couldn't find configuration file")
         .read_to_string(&mut buffer);
 
@@ -33,7 +35,7 @@ fn main() {
         context.add(key, &val.as_str().expect("error: value not a valid string"));
     };
 
-    let tera = Tera::new(format!("{}templates/*", app_dir).as_str());
+    let tera = Tera::new(app_dir.join("templates/*").to_str().unwrap());
 
     let files = config
         .get("files")
@@ -47,6 +49,7 @@ fn main() {
             .expect("error: couldn't render template");
         let mut file = File::create(&path)
             .expect(format!("Couldn't access {}", path).as_str());
+        
         file.write_all(render.as_bytes());
         println!("Rendered {}", path);
     };
