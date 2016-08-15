@@ -1,1 +1,2 @@
+URxvt.font:     {{ font }}
 *.foreground:   {{ fg }} 

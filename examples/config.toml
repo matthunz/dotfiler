@@ -1,5 +1,8 @@
 [files]
 xresources = "/home/<user>/.Xresources"
 
+[global]
+font = "DejavuSansMono"
+
 [default]
 fg = "#888888"
