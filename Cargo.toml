@@ -2,6 +2,7 @@
 name = "riceinator"
 version = "0.1.0"
 authors = ["matthunz <matthunz2@gmail.com>"]
+build = "build.rs"
 
 [dependencies]
 tera = "0.1.2"
