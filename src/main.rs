@@ -39,12 +39,25 @@ fn main() {
     let variables = config
         .get(&theme)
         .unwrap()
-        .as_table().expect("Theme is not valid a TOML table");
+        .as_table()
+        .expect("Theme is not valid a TOML table");
     let mut context = Context::new();
-
+    
     for (key, val) in variables {
         context.add(key, &val.as_str().expect("error: value not a valid string"));
     };
+
+    if config.contains_key("global") {
+        let globals = config
+            .get("global")
+            .unwrap()
+            .as_table()
+            .expect("[global] is not a valid TOML table");
+
+        for (key, val) in variables {
+            context.add(key, &val.as_str().expect("error: value not a valid string"));
+        };
+    }
 
     let tera = Tera::new(app_dir.join("templates/*").to_str().unwrap());
 
