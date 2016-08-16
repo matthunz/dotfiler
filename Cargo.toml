@@ -2,7 +2,13 @@
 name = "dotfiler"
 version = "0.1.0"
 authors = ["matthunz <matthunz2@gmail.com>"]
-build = "build.rs"
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/matthunz/dotfiler"
+homepage = "https://github.com/matthunz/dotfiler"
+description = """
+A templating system for unix configuration files
+"""
 
 [dependencies]
 tera = "0.1.2"

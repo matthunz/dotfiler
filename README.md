@@ -2,10 +2,11 @@
 Manage your configuration files easily with templating
 
 ##Installation
-  1. ```git clone https://github.com/matthunz/dotfiler.git```
-  2. ```cargo build --release```
+  1. ```cargo install dotfiler```
+  2. ```mkdir $XDG_CONFIG_HOME/dotfiler```
+  3. ```mv examples/* $XDG_CONFIG_HOME/dotfiler```
 
-  This creates a dotfiler executable under ~/bin. To run this, either add ~/bin to your PATH or move the file to /usr/bin
+  This creates a dotfiler executable under ~/.cargo/bin/. To run this, either add that to your PATH or move the file to /usr/bin/
 
 ##Usage
   1. Move your file, for example xresources, into ```~/.config/dotfiler/templates```
