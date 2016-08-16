@@ -35,7 +35,7 @@ fn main() {
         println!("error: theme [{}] not found", theme);
         exit(1);
     }
-    
+ 
     let variables = config
         .get(&theme)
         .unwrap()
@@ -45,7 +45,7 @@ fn main() {
     
     for (key, val) in variables {
         context.add(key, &val.as_str().expect("error: value not a valid string"));
-    };
+    }
 
     if config.contains_key("global") {
         let globals = config
@@ -54,9 +54,9 @@ fn main() {
             .as_table()
             .expect("[global] is not a valid TOML table");
 
-        for (key, val) in variables {
+        for (key, val) in globals {
             context.add(key, &val.as_str().expect("error: value not a valid string"));
-        };
+        }
     }
 
     let tera = Tera::new(app_dir.join("templates/*").to_str().unwrap());
@@ -64,7 +64,8 @@ fn main() {
     let files = config
         .get("files")
         .expect("No [files] section found")
-        .as_table().expect("[files] is not valid a TOML table");
+        .as_table()
+        .expect("[files] is not a valid TOML table");
 
     for (template, path) in files {
         let path = path.as_str().expect("error: path not a valid string");
